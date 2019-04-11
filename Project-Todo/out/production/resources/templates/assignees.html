@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="/webjars/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Assignees</title>
+</head>
+<body>
+<table class="table jumbotron table-hover">
+    <thead>
+    <div class="row text-center">
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Delete</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Todos</th>
+        </tr>
+    </div>
+    </thead>
+    <tbody>
+    <tr th:each="assignee : ${assignees}">
+        <td th:text="*{assignee.getName()}"/>
+        <td th:text="*{assignee.getEmail()}"/>
+        <td>
+            <a class="btn-sm btn-danger" th:href="@{'/' + ${assignee.getId()} + '/deleteassignee'}">delete</a>
+        </td>
+        <td>
+            <a class="btn-sm btn-primary" th:href="@{'/' + ${assignee.getId()} + '/editassignee'}">edit</a>
+        </td>
+        <td>
+            <a class="btn-sm btn-warning" th:href="@{'/' + ${assignee.getId()} + '/assignee-todos'}">todos</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div class="text-center mb-3 mt-3">
+    <a class="btn bg-warning"  th:href="@{/addassignee}">Add New Assignee</a>
+</div>
+
+<div class="text-center mb-3 mt-3">
+    <a class="btn bg-primary" style="color: aliceblue"  th:href="@{/}">Back to Main Page</a>
+</div>
+
+<script src="/webjars/jquery/1.11.1/jquery.min.js"></script>
+<script src="/webjars/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</body>
+</html>

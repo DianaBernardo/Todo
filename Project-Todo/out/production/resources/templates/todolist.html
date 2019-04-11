@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="/webjars/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Todo CRUD App</title>
+</head>
+<body>
+<div class="container-fluid">
+<h2 class="text-center mt-3">TODOS FOR TODAY</h2>
+    <div>
+    <form action="/search" method="post">
+        <input type="text" class="searchTerm" placeholder="Search tasks" name="search" id="bar">
+        <button type="submit" class="searchButton" id="search">
+            <i>SEARCH</i>
+        </button>
+    </form>
+    </div>
+    <div class="text-center mb-3 mt-3">
+    <a class="btn bg-warning"  th:href="@{/add}">Add New Todo</a>
+    </div>
+<table class="table jumbotron table-hover">
+    <thead>
+    <div class="row text-center">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">ACTION</th>
+            <th scope="col">DONE</th>
+            <th scope="col">URGENT</th>
+            <th scope="col">DELETE</th>
+            <th scope="col">EDIT</th>
+            <th scope="col">ASSIGNEE</th>
+        </tr>
+    </div>
+    </thead>
+    <tbody>
+        <tr th:each="todo : ${todos}">
+            <td th:text="*{todo.getId()}"/>
+            <td th:text="*{todo.getTitle()}"/>
+            <td th:text="*{todo.isDone()}"/>
+            <td th:text="*{todo.isUrgent()}"/>
+            <td>
+                <a class="btn-sm btn-danger" th:href="@{'/' + ${todo.getId()} + '/delete'}">delete</a>
+            </td>
+            <td>
+                <a class="btn-sm btn-primary" th:href="@{'/' + ${todo.getId()} + '/edit'}">edit</a>
+            </td>
+            <td th:text="${todo.assignee == null} ? 'No Assignee' : *{todo.assignee}"/>
+        </tr>
+    </tbody>
+</table>
+    <div class="mb-3 mt-3">
+        <a class="btn bg-primary text-white"  th:href="@{/assignees}">Assignees</a>
+    </div>
+
+</div>
+<script src="/webjars/jquery/1.11.1/jquery.min.js"></script>
+<script src="/webjars/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</body>
+</html>
